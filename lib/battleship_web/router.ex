@@ -15,8 +15,17 @@ defmodule BattleshipWeb.Router do
 
   scope "/", BattleshipWeb do
     pipe_through :browser # Use the default browser stack
-
+    get "/hello/:name", HelloController, :world
     get "/", PageController, :index
+  end
+
+  def swagger_info do
+    %{
+      info: %{
+        version: "1.0",
+        title: "Battleship"
+      }
+    }
   end
 
   # Other scopes may use custom stacks.

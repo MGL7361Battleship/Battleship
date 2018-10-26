@@ -5,6 +5,14 @@
 # is restricted to this project.
 use Mix.Config
 
+config :battleship, :phoenix_swagger,
+  swagger_files: %{
+    "priv/static/swagger.json" => [
+      router: BattleshipWeb.Router,     # phoenix routes will be converted to swagger paths
+      endpoint: BattleshipWeb.Endpoint  # (optional) endpoint config used to set host, port and https schemes.
+    ]
+  }
+
 # General application configuration
 config :battleship,
   ecto_repos: [Battleship.Repo]
