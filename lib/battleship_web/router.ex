@@ -29,7 +29,7 @@ defmodule BattleshipWeb.Router do
   end
 
   scope "/api/swagger" do
-    forward "/", PhoenixSwagger.Plug.SwaggerUI, otp_app: :battleship, swagger_file: "swagger.json"
+    forward "/", PhoenixSwagger.Plug.SwaggerUI, otp_app: :battleship, swagger_file: "swagger.yaml"
   end
 
   # Other scopes may use custom stacks.

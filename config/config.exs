@@ -7,7 +7,7 @@ use Mix.Config
 
 config :battleship, :phoenix_swagger,
   swagger_files: %{
-    "priv/static/swagger.json" => [
+    "swagger.yaml" => [
       router: BattleshipWeb.Router,     # phoenix routes will be converted to swagger paths
       endpoint: BattleshipWeb.Endpoint  # (optional) endpoint config used to set host, port and https schemes.
     ]
