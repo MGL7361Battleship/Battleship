@@ -9,7 +9,7 @@ info:
   license:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-host: "petstore.swagger.io"
+host: "localhost:4000"
 basePath: "/v0.1"
 tags:
 - name: "battleship"
@@ -25,7 +25,6 @@ tags:
 #     description: "Find out more about our store"
 #     url: "http://swagger.io"
 schemes:
-- "https"
 - "http"
 paths:
   /enregistrer_joueur:
