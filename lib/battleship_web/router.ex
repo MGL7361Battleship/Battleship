@@ -19,19 +19,6 @@ defmodule BattleshipWeb.Router do
     get "/", PageController, :index
   end
 
-  def swagger_info do
-    %{
-      info: %{
-        version: "1.0",
-        title: "Battleship"
-      }
-    }
-  end
-
-  scope "/api/swagger" do
-    forward "/", PhoenixSwagger.Plug.SwaggerUI, otp_app: :battleship, swagger_file: "swagger.yaml"
-  end
-
   # Other scopes may use custom stacks.
   # scope "/api", BattleshipWeb do
   #   pipe_through :api
