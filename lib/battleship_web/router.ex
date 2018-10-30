@@ -15,7 +15,7 @@ defmodule BattleshipWeb.Router do
 
   scope "/", BattleshipWeb do
     pipe_through :browser # Use the default browser stack
-
+    get "/hello/:name", HelloController, :world
     get "/", PageController, :index
   end
 
