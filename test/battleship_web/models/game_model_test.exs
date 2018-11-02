@@ -2,10 +2,40 @@ defmodule BattleshipWeb.GameModelTest do
   use ExUnit.Case
   import Battleship.Game
 
-  test "Changer le nom d'un joueur" do
+  test "Obtenir toutes les positions d'un bateau" do
     {:ok, structure} = read_initial_state()
     id_joueur = 0
     nom_joueur = "Joueur 1"
+    nom_bateau = "sous-marin"
+    structure = modifier_position_bateau(structure, nom_joueur, nom_bateau, "B2")
+
+    # assert get_all_positions_bateau(structure, nom_joueur, nom_bateau) == ["B2", "C2", "D2"]
+    assert get_all_positions_bateau(structure, nom_joueur, nom_bateau) == ["B2", "B3", "B4"]
+
+  end
+
+  test "Modifier la position d'un bateau sans validation" do
+    {:ok, structure} = read_initial_state()
+    id_joueur = 0
+    nom_joueur = "Joueur 1"
+    nouv_s = modifier_position_bateau(structure, nom_joueur, "torpilleur", "A3")
+    assert Enum.at(nouv_s["torpilleur"], id_joueur)["position"] == "A3"
+  end
+
+  test "Modifier l'orientation d'un bateau sans validation" do
+    {:ok, structure} = read_initial_state()
+    id_joueur = 0
+    nom_joueur = "Joueur 1"
+    nouv_s = modifier_orientation_bateau(structure, nom_joueur, "torpilleur")
+    assert Enum.at(nouv_s["torpilleur"], id_joueur)["orientation"] == "horizontal"
+    nouv_s = modifier_orientation_bateau(nouv_s, nom_joueur, "torpilleur")
+    assert Enum.at(nouv_s["torpilleur"], id_joueur)["orientation"] == "vertical"
+  end
+
+  test "Changer le nom d'un joueur" do
+    {:ok, structure} = read_initial_state()
+    id_joueur = 0
+    nom_joueur = "Nouveau nom joueur"
     nouv_s = changer_nom_joueur(structure, id_joueur, nom_joueur)
     assert Enum.at(nouv_s["monde"]["joueur"], id_joueur) == nom_joueur
   end
@@ -17,7 +47,6 @@ defmodule BattleshipWeb.GameModelTest do
     position_case = 1
     nouveau_statut = "Modifié"
     id_joueur = 0
-    structure = changer_nom_joueur(structure, id_joueur, nom_joueur)
 
     new_state = update_etat_case(structure, nom_joueur, nom_bateau, position_case, nouveau_statut)
     bateau_modifie = Enum.at new_state[nom_bateau], id_joueur

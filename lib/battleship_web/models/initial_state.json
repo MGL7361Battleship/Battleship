@@ -1,7 +1,7 @@
 {
     "monde": {
         "etat_partie": "Non démarré",
-        "joueur": ["", ""]
+        "joueur": ["Joueur 1", "Joueur 2"]
     },
     "case_touchees": [
         [],
@@ -25,7 +25,7 @@
             "etat_cases": ["Intact", "Intact"]
         }
     ],
-    "porte_avion": [
+    "porte-avion": [
         {
             "nb_cases": 5,
             "position": "",
@@ -67,7 +67,7 @@
             "etat_cases": ["Intact", "Intact", "Intact"]
         }
     ],
-    "contre_torpilleur": [
+    "contre-torpilleur": [
         {
             "nb_cases": 3,
             "position": "",

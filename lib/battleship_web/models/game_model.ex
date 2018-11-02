@@ -27,7 +27,56 @@ defmodule Battleship.Game do
     put_in structure["monde"]["joueur"], nouveaux_joueurs
   end
 
+  def modifier_orientation_bateau(structure, nom_joueur, nom_bateau) do
+    id_joueur = obtenir_index_joueur(structure, nom_joueur)
+    bateau = Enum.at(structure[nom_bateau], id_joueur)
+    if bateau["orientation"] == "horizontal" do
+      bateau = put_in bateau["orientation"], "vertical"
+      bateaux = List.replace_at structure[nom_bateau], id_joueur, bateau
+      put_in structure[nom_bateau], bateaux
+      else
+      bateau = put_in bateau["orientation"], "horizontal"
+      bateaux = List.replace_at structure[nom_bateau], id_joueur, bateau
+      put_in structure[nom_bateau], bateaux
+      end
+  end
+
+  def obtenir_noms_bateaux() do
+    ["torpilleur", "contre-torpilleur", "sous-marin", "porte-avion", "croiseur"]
+  end
+
+  def get_all_positions_bateau(structure, nom_joueur, nom_bateau) do
+    id_joueur = obtenir_index_joueur(structure, nom_joueur)
+    bateau = Enum.at(structure[nom_bateau], id_joueur)
+    nb_cases = bateau["nb_cases"]
+    position = bateau["position"]
+
+    if bateau["orientation"] == "vertical" do
+      # letters
+      Enum.map(0..nb_cases-1, &(Enum.join([to_string([List.first(to_charlist(position))+&1]), String.last(position)])))
+    else
+      # numbers
+      Enum.map(0..nb_cases-1, &(Enum.join([String.first(position), to_string(String.to_integer(String.last(position)) + &1)])))
+    end
+  end
+
+  def position_est_vide(structure, nom_joueur, position) do
+    id_joueur = obtenir_index_joueur(structure, nom_joueur)
+
+  end
+
+  def modifier_position_bateau(structure, nom_joueur, nom_bateau, position) do
+    id_joueur = obtenir_index_joueur(structure, nom_joueur)
+    bateau = Enum.at(structure[nom_bateau], id_joueur)
+    bateau = put_in bateau["position"], position
+    bateaux = List.replace_at structure[nom_bateau], id_joueur, bateau
+    put_in structure[nom_bateau], bateaux
+  end
+
   def positionner_bateau(structure, nom_joueur, nom_bateau, position) do
+    id_joueur = obtenir_index_joueur(structure, nom_joueur)
+    bateau = Enum.at(structure[nom_bateau], id_joueur)
+    bateau = put_in bateau["position"], position
 
   end
 
