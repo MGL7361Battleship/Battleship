@@ -1,0 +1,84 @@
+{
+    "monde": {
+        "etat_partie": "Non démarré",
+        "joueurs": ["", ""]
+    },
+    "case_touchees": [
+        [],
+        []
+    ],
+    "case_manquees": [
+        [], 
+        []
+    ],
+    "torpilleurs": [
+        {
+            "nb_cases": 2,
+            "position": "",
+            "orientation": "",
+            "etat_cases": ["Intact", "Intact"]
+        }, 
+        {
+            "nb_cases": 2,
+            "position": "",
+            "orientation": "",
+            "etat_cases": ["Intact", "Intact"]
+        }
+    ],
+    "porte_avions": [
+        {
+            "nb_cases": 5,
+            "position": "",
+            "orientation": "",
+            "etat_cases": ["Intact", "Intact", "Intact", "Intact", "Intact"]
+        }, 
+        {
+            "nb_cases": 5,
+            "position": "",
+            "orientation": "",
+            "etat_cases": ["Intact", "Intact", "Intact", "Intact", "Intact"]
+        }
+    ],
+    "croiseurs": [
+        {
+            "nb_cases": 4,
+            "position": "",
+            "orientation": "",
+            "etat_cases": ["Intact", "Intact", "Intact", "Intact"]
+        }, 
+        {
+            "nb_cases": 4,
+            "position": "",
+            "orientation": "",
+            "etat_cases": ["Intact", "Intact", "Intact", "Intact"]
+        }
+    ],
+    "sous-marins": [
+        {
+            "nb_cases": 3,
+            "position": "",
+            "orientation": "",
+            "etat_cases": ["Intact", "Intact", "Intact"]
+        }, 
+        {
+            "nb_cases": 3,
+            "position": "",
+            "orientation": "",
+            "etat_cases": ["Intact", "Intact", "Intact"]
+        }
+    ],
+    "contre_torpilleurs": [
+        {
+            "nb_cases": 3,
+            "position": "",
+            "orientation": "",
+            "etat_cases": ["Intact", "Intact", "Intact"]
+        }, 
+        {
+            "nb_cases": 3,
+            "position": "",
+            "orientation": "",
+            "etat_cases": ["Intact", "Intact", "Intact"]
+        }
+    ]
+}
