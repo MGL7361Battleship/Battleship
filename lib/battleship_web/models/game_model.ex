@@ -9,8 +9,12 @@ defmodule Battleship.Game do
     get_json("lib/battleship_web/models/initial_state.json")
   end
 
+  def obtenir_index_joueur(structure, nom_joueur) do
+    Enum.find_index(structure["monde"]["joueur"], &(&1 == nom_joueur))
+  end
+
   def update_etat_case(structure, nom_joueur, nom_bateau, position_case, nouveau_statut) do
-    id_joueur = Enum.find_index(structure["monde"]["joueurs"], &(&1 == nom_joueur))
+    id_joueur = obtenir_index_joueur(structure, nom_joueur)
     bateau_a_modifier = Enum.at(structure[nom_bateau], id_joueur)
     etat_cases = bateau_a_modifier["etat_cases"]
     nouvel_etat_cases = List.replace_at(etat_cases, position_case, nouveau_statut)
@@ -19,8 +23,28 @@ defmodule Battleship.Game do
   end
 
   def changer_nom_joueur(structure, id_joueur, nom_joueur) do
-    nouveaux_joueurs = List.replace_at structure["monde"]["joueurs"], id_joueur, nom_joueur
-    put_in structure["monde"]["joueurs"], nouveaux_joueurs
+    nouveaux_joueurs = List.replace_at structure["monde"]["joueur"], id_joueur, nom_joueur
+    put_in structure["monde"]["joueur"], nouveaux_joueurs
+  end
+
+  def positionner_bateau(structure, nom_joueur, nom_bateau, position) do
+
+  end
+
+  def ajouter_bateau(structure, nom_joueur, nom_bateau) do
+
+  end
+
+  def enlever_bateau(structure, nom_joueur, nom_bateau) do
+
+  end
+
+  def rotation_bateau(structure, nom_joueur, nom_bateau) do
+
+  end
+
+  def attaquer_position(structure, nom_joueur, position) do
+
   end
 
 end

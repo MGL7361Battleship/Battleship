@@ -1,7 +1,7 @@
 {
     "monde": {
         "etat_partie": "Non démarré",
-        "joueurs": ["", ""]
+        "joueur": ["", ""]
     },
     "case_touchees": [
         [],
@@ -11,7 +11,7 @@
         [], 
         []
     ],
-    "torpilleurs": [
+    "torpilleur": [
         {
             "nb_cases": 2,
             "position": "",
@@ -25,7 +25,7 @@
             "etat_cases": ["Intact", "Intact"]
         }
     ],
-    "porte_avions": [
+    "porte_avion": [
         {
             "nb_cases": 5,
             "position": "",
@@ -39,7 +39,7 @@
             "etat_cases": ["Intact", "Intact", "Intact", "Intact", "Intact"]
         }
     ],
-    "croiseurs": [
+    "croiseur": [
         {
             "nb_cases": 4,
             "position": "",
@@ -53,7 +53,7 @@
             "etat_cases": ["Intact", "Intact", "Intact", "Intact"]
         }
     ],
-    "sous-marins": [
+    "sous-marin": [
         {
             "nb_cases": 3,
             "position": "",
@@ -67,7 +67,7 @@
             "etat_cases": ["Intact", "Intact", "Intact"]
         }
     ],
-    "contre_torpilleurs": [
+    "contre_torpilleur": [
         {
             "nb_cases": 3,
             "position": "",
