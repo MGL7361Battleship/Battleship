@@ -4,13 +4,23 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Mix compile",
+            "label": "Mix test",
             "type": "shell",
-            "command": "mix compile",
-            "problemMatcher": "$mixCompileError",
+            "command": "mix test",
+            "problemMatcher": "$mixTestFailure",
             "group": {
                 "kind": "build",
                 "isDefault": true
+            },
+            "windows": {
+              "options": {
+                  "shell": {
+                      "executable": "cmd.exe",
+                      "args": [
+                          "/d", "/c"
+                      ]
+                  }
+              }  
             }
         }
     ]

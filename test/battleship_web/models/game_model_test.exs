@@ -5,30 +5,32 @@ defmodule BattleshipWeb.GameModelTest do
   test "Obtenir toutes les positions d'un bateau" do
     {:ok, structure} = read_initial_state()
     id_joueur = 0
-    nom_joueur = "Joueur 1"
     nom_bateau = "sous-marin"
-    structure = modifier_position_bateau(structure, nom_joueur, nom_bateau, "B2")
 
-    # assert get_all_positions_bateau(structure, nom_joueur, nom_bateau) == ["B2", "C2", "D2"]
-    assert get_all_positions_bateau(structure, nom_joueur, nom_bateau) == ["B2", "B3", "B4"]
+    assert get_all_positions_bateau(structure, id_joueur, nom_bateau) == []
+    structure = modifier_orientation_bateau(structure, id_joueur, nom_bateau)
+    assert get_all_positions_bateau(structure, id_joueur, nom_bateau) == []
+
+    structure = modifier_position_bateau(structure, id_joueur, nom_bateau, "B2")
+    assert get_all_positions_bateau(structure, id_joueur, nom_bateau) == ["B2", "B3", "B4"]
+    structure = modifier_orientation_bateau(structure, id_joueur, nom_bateau)
+    assert get_all_positions_bateau(structure, id_joueur, nom_bateau) == ["B2", "C2", "D2"]
 
   end
 
   test "Modifier la position d'un bateau sans validation" do
     {:ok, structure} = read_initial_state()
     id_joueur = 0
-    nom_joueur = "Joueur 1"
-    nouv_s = modifier_position_bateau(structure, nom_joueur, "torpilleur", "A3")
+    nouv_s = modifier_position_bateau(structure, id_joueur, "torpilleur", "A3")
     assert Enum.at(nouv_s["torpilleur"], id_joueur)["position"] == "A3"
   end
 
   test "Modifier l'orientation d'un bateau sans validation" do
     {:ok, structure} = read_initial_state()
     id_joueur = 0
-    nom_joueur = "Joueur 1"
-    nouv_s = modifier_orientation_bateau(structure, nom_joueur, "torpilleur")
+    nouv_s = modifier_orientation_bateau(structure, id_joueur, "torpilleur")
     assert Enum.at(nouv_s["torpilleur"], id_joueur)["orientation"] == "horizontal"
-    nouv_s = modifier_orientation_bateau(nouv_s, nom_joueur, "torpilleur")
+    nouv_s = modifier_orientation_bateau(nouv_s, id_joueur, "torpilleur")
     assert Enum.at(nouv_s["torpilleur"], id_joueur)["orientation"] == "vertical"
   end
 
@@ -42,13 +44,12 @@ defmodule BattleshipWeb.GameModelTest do
 
   test "Change l'état d'une case" do
     {:ok, structure} = read_initial_state()
-    nom_joueur = "Joueur 1"
     nom_bateau = "torpilleur"
     position_case = 1
     nouveau_statut = "Modifié"
     id_joueur = 0
 
-    new_state = update_etat_case(structure, nom_joueur, nom_bateau, position_case, nouveau_statut)
+    new_state = update_etat_case(structure, id_joueur, nom_bateau, position_case, nouveau_statut)
     bateau_modifie = Enum.at new_state[nom_bateau], id_joueur
     assert Enum.at(bateau_modifie["etat_cases"], position_case) == nouveau_statut
   end
