@@ -2,6 +2,28 @@ defmodule BattleshipWeb.GameModelTest do
   use ExUnit.Case
   import Battleship.Game
 
+  test "Déterminer si la case est vide" do
+    {:ok, structure} = read_initial_state()
+    id_joueur = 0
+    nom_bateau = "sous-marin"
+    position = "A1"
+
+    assert position_est_vide(structure, id_joueur, position)
+    structure = modifier_orientation_bateau(structure, id_joueur, nom_bateau)
+    structure = modifier_position_bateau(structure, id_joueur, nom_bateau, position)
+    assert !position_est_vide(structure, id_joueur, "A1")
+    assert !position_est_vide(structure, id_joueur, "A2")
+    assert !position_est_vide(structure, id_joueur, "A3")
+    assert position_est_vide(structure, id_joueur, "A4")
+    structure = modifier_orientation_bateau(structure, id_joueur, nom_bateau)
+    assert !position_est_vide(structure, id_joueur, "A1")
+    assert !position_est_vide(structure, id_joueur, "B1")
+    assert !position_est_vide(structure, id_joueur, "C1")
+    assert position_est_vide(structure, id_joueur, "A2")
+    assert position_est_vide(structure, id_joueur, "A3")
+
+  end
+
   test "Obtenir toutes les positions d'un bateau" do
     {:ok, structure} = read_initial_state()
     id_joueur = 0

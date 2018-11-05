@@ -83,8 +83,8 @@ defmodule Battleship.Game do
 
   def position_est_vide(structure, id_joueur, position) do
     bateaux = obtenir_noms_bateaux()
-    positions = Enum.map(bateaux, &(get_all_positions_bateau(structure, id_joueur, &1)))
-
+    positions = Enum.flat_map(bateaux, &(get_all_positions_bateau(structure, id_joueur, &1)))
+    Enum.all?(positions, &(&1 != position))
   end
 
   def modifier_position_bateau(structure, id_joueur, nom_bateau, position) do
