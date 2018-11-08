@@ -13,13 +13,11 @@
     ],
     "torpilleur": [
         {
-            "nb_cases": 2,
             "position": "",
             "orientation": "",
             "etat_cases": ["Intact", "Intact"]
         }, 
         {
-            "nb_cases": 2,
             "position": "",
             "orientation": "",
             "etat_cases": ["Intact", "Intact"]
@@ -27,13 +25,11 @@
     ],
     "porte-avion": [
         {
-            "nb_cases": 5,
             "position": "",
             "orientation": "",
             "etat_cases": ["Intact", "Intact", "Intact", "Intact", "Intact"]
         }, 
         {
-            "nb_cases": 5,
             "position": "",
             "orientation": "",
             "etat_cases": ["Intact", "Intact", "Intact", "Intact", "Intact"]
@@ -41,13 +37,11 @@
     ],
     "croiseur": [
         {
-            "nb_cases": 4,
             "position": "",
             "orientation": "",
             "etat_cases": ["Intact", "Intact", "Intact", "Intact"]
         }, 
         {
-            "nb_cases": 4,
             "position": "",
             "orientation": "",
             "etat_cases": ["Intact", "Intact", "Intact", "Intact"]
@@ -55,13 +49,11 @@
     ],
     "sous-marin": [
         {
-            "nb_cases": 3,
             "position": "",
             "orientation": "",
             "etat_cases": ["Intact", "Intact", "Intact"]
         }, 
         {
-            "nb_cases": 3,
             "position": "",
             "orientation": "",
             "etat_cases": ["Intact", "Intact", "Intact"]
@@ -69,13 +61,11 @@
     ],
     "contre-torpilleur": [
         {
-            "nb_cases": 3,
             "position": "",
             "orientation": "",
             "etat_cases": ["Intact", "Intact", "Intact"]
         }, 
         {
-            "nb_cases": 3,
             "position": "",
             "orientation": "",
             "etat_cases": ["Intact", "Intact", "Intact"]

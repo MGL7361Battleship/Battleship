@@ -68,6 +68,16 @@ defmodule Battleship.Game do
     ["torpilleur", "contre-torpilleur", "sous-marin", "porte-avion", "croiseur"]
   end
 
+  def obtenir_nb_cases(nom_bateau) do
+    case nom_bateau do
+      "torpilleur" -> 2
+      "contre-torpilleur" -> 3
+      "sous-marin" -> 3
+      "porte-avion" -> 5
+      "croiseur" -> 4
+    end
+  end
+
     @doc """
   If no orientation is provided, return an empty list
   """
@@ -121,7 +131,7 @@ defmodule Battleship.Game do
   """
   def get_all_positions_bateau(structure, id_joueur, nom_bateau) do
     bateau = Enum.at(structure[nom_bateau], id_joueur)
-    nb_cases = bateau["nb_cases"]
+    nb_cases = obtenir_nb_cases(nom_bateau)
     position = bateau["position"]
 
     calculer_positions(position, nb_cases, bateau["orientation"])
@@ -152,7 +162,8 @@ defmodule Battleship.Game do
   Will not work if a position is occupied.
   """
   def positionner_bateau(structure, id_joueur, nom_bateau, position, orientation) do
-
+    nb_cases = obtenir_nb_cases(nom_bateau)
+    nouvelles_positions_bateau = calculer_positions(position, nb_cases, orientation)
     bateau = Enum.at(structure[nom_bateau], id_joueur)
     bateau = put_in bateau["position"], position
     #structure = put_in structure[nom_bateau]
