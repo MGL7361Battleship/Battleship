@@ -68,14 +68,28 @@ defmodule Battleship.Game do
     ["torpilleur", "contre-torpilleur", "sous-marin", "porte-avion", "croiseur"]
   end
 
-  @doc """
-  get all the positions of a boat that is placed on the grid.
+    @doc """
+  If no orientation is provided, return an empty list
   """
-  def get_all_positions_bateau(structure, id_joueur, nom_bateau) do
-    bateau = Enum.at(structure[nom_bateau], id_joueur)
-    nb_cases = bateau["nb_cases"]
-    position = bateau["position"]
+  def calculer_positions(position, nb_cases, "") do
+    []
+  end
 
+    @doc """
+  If no position is provided, return an empty list
+  """
+  def calculer_positions("", nb_cases, orientation) do
+    []
+  end
+
+  @doc """
+  receives a position and how many cells in the grid we want
+  returns a list of positions including the one received in parameter
+
+  Example: calculer_positions_horizontales("A1", 3)
+  Returns ["A1", "A2", "A3"]
+  """
+  def calculer_positions(position, nb_cases, "horizontal") do
     prochaine_position_horizontale = fn(count) ->
       position_lettre = String.first(position)
       position_chiffre = String.to_integer(String.last(position))
@@ -84,6 +98,13 @@ defmodule Battleship.Game do
       Enum.join([position_lettre, nouvelle_position_chiffre])
     end
 
+    Enum.map(0..nb_cases-1, prochaine_position_horizontale)
+  end
+
+  @doc """
+  Same as the horizontal function
+  """
+  def calculer_positions(position, nb_cases, "vertical") do
     prochaine_position_verticale = fn(count) ->
       position_lettre = List.first(to_charlist(position))
       position_chiffre = String.last(position)
@@ -92,18 +113,18 @@ defmodule Battleship.Game do
       Enum.join([nouvelle_position_lettre, position_chiffre])
     end
 
-    calculer_positions = fn ->
-      cond do
-        bateau["orientation"] == "vertical" -> Enum.map(0..nb_cases-1, prochaine_position_verticale)
-        bateau["orientation"] == "horizontal" -> Enum.map(0..nb_cases-1, prochaine_position_horizontale)
-        bateau["orientation"] == "" -> []
-      end
-    end
+    Enum.map(0..nb_cases-1, prochaine_position_verticale)
+  end
 
-    cond do
-      position == "" -> []
-      position != "" -> calculer_positions.()
-    end
+  @doc """
+  get all the positions of a boat that is placed on the grid.
+  """
+  def get_all_positions_bateau(structure, id_joueur, nom_bateau) do
+    bateau = Enum.at(structure[nom_bateau], id_joueur)
+    nb_cases = bateau["nb_cases"]
+    position = bateau["position"]
+
+    calculer_positions(position, nb_cases, bateau["orientation"])
   end
 
   @doc """
@@ -130,10 +151,11 @@ defmodule Battleship.Game do
   Place a boat on the grid.
   Will not work if a position is occupied.
   """
-  def positionner_bateau(structure, id_joueur, nom_bateau, position) do
+  def positionner_bateau(structure, id_joueur, nom_bateau, position, orientation) do
+
     bateau = Enum.at(structure[nom_bateau], id_joueur)
     bateau = put_in bateau["position"], position
-
+    #structure = put_in structure[nom_bateau]
   end
 
   @doc """

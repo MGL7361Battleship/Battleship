@@ -77,6 +77,13 @@ defmodule BattleshipWeb.GameModelTest do
   end
 
   test "Positionner un bateau" do
+    {:ok, structure} = read_initial_state()
+    nom_bateau = "torpilleur"
+    position = "A1"
+    nouveau_statut = "Modifié"
+    id_joueur = 0
+
+    #structure = positionner_bateau(structure, id_joueur, nom_bateau, position)
 
   end
 
