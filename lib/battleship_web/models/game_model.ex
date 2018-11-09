@@ -48,17 +48,18 @@ defmodule Battleship.Game do
   def modifier_orientation_bateau(structure, id_joueur, nom_bateau) do
     bateau = Enum.at(structure[nom_bateau], id_joueur)
 
-    changer_orientation = fn(orientation) ->
-      bateau = put_in bateau["orientation"], orientation
-      bateaux = List.replace_at structure[nom_bateau], id_joueur, bateau
-      put_in structure[nom_bateau], bateaux
-    end
-
     cond do
-      bateau["orientation"] == "horizontal" -> changer_orientation.("vertical")
-      bateau["orientation"] == "vertical" -> changer_orientation.("horizontal")
-      bateau["orientation"] == "" -> changer_orientation.("horizontal")
+      bateau["orientation"] == "horizontal" -> modifier_orientation_bateau(structure, id_joueur, nom_bateau, "vertical")
+      bateau["orientation"] == "vertical" -> modifier_orientation_bateau(structure, id_joueur, nom_bateau, "horizontal")
+      bateau["orientation"] == "" -> modifier_orientation_bateau(structure, id_joueur, nom_bateau, "horizontal")
     end
+  end
+
+  def modifier_orientation_bateau(structure, id_joueur, nom_bateau, orientation) do
+    bateau = Enum.at(structure[nom_bateau], id_joueur)
+    bateau = put_in bateau["orientation"], orientation
+    bateaux = List.replace_at structure[nom_bateau], id_joueur, bateau
+    put_in structure[nom_bateau], bateaux
   end
 
   @doc """
@@ -81,14 +82,14 @@ defmodule Battleship.Game do
     @doc """
   If no orientation is provided, return an empty list
   """
-  def calculer_positions(position, nb_cases, "") do
+  def calculer_positions(_, _, "") do
     []
   end
 
     @doc """
   If no position is provided, return an empty list
   """
-  def calculer_positions("", nb_cases, orientation) do
+  def calculer_positions("", _, _) do
     []
   end
 
@@ -164,11 +165,16 @@ defmodule Battleship.Game do
   def positionner_bateau(structure, id_joueur, nom_bateau, position, orientation) do
     nb_cases = obtenir_nb_cases(nom_bateau)
     nouvelles_positions_bateau = calculer_positions(position, nb_cases, orientation)
-    bateau = Enum.at(structure[nom_bateau], id_joueur)
-    bateau = put_in bateau["position"], position
-    #structure = put_in structure[nom_bateau]
-  end
 
+    positions_vides = Enum.map(nouvelles_positions_bateau, &(position_est_vide(structure, id_joueur, &1)))
+
+    if Enum.all?(positions_vides) do
+      structure = modifier_position_bateau(structure, id_joueur, nom_bateau, position)
+      modifier_orientation_bateau(structure, id_joueur, nom_bateau, orientation)
+    else
+      structure
+    end
+  end
   @doc """
 
   """

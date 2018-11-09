@@ -80,11 +80,14 @@ defmodule BattleshipWeb.GameModelTest do
     {:ok, structure} = read_initial_state()
     nom_bateau = "torpilleur"
     position = "A1"
-    nouveau_statut = "Modifié"
     id_joueur = 0
+    orientation = "horizontal"
 
-    #structure = positionner_bateau(structure, id_joueur, nom_bateau, position)
+    structure = positionner_bateau(structure, id_joueur, nom_bateau, position, orientation)
 
+    assert Enum.at(structure[nom_bateau], id_joueur)["position"] == "A1"
+    assert Enum.at(structure[nom_bateau], id_joueur)["orientation"] == "horizontal"
+    # TODO: Finish
   end
 
   test "Positionner deux bateaux sur une même case" do
