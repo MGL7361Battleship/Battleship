@@ -175,18 +175,16 @@ defmodule Battleship.Game do
       structure
     end
   end
-  @doc """
-
-  """
-  def ajouter_bateau(structure, id_joueur, nom_bateau) do
-
-  end
 
   @doc """
 
   """
   def enlever_bateau(structure, id_joueur, nom_bateau) do
-
+    bateau = Enum.at(structure[nom_bateau], id_joueur)
+    bateau = put_in bateau["position"], ""
+    bateau = put_in bateau["orientation"], ""
+    bateaux = List.replace_at structure[nom_bateau], id_joueur, bateau
+    put_in structure[nom_bateau], bateaux
   end
 
   @doc """

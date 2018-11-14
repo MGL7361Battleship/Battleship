@@ -85,24 +85,67 @@ defmodule BattleshipWeb.GameModelTest do
 
     structure = positionner_bateau(structure, id_joueur, nom_bateau, position, orientation)
 
-    assert Enum.at(structure[nom_bateau], id_joueur)["position"] == "A1"
-    assert Enum.at(structure[nom_bateau], id_joueur)["orientation"] == "horizontal"
-    # TODO: Finish
+    assert Enum.at(structure[nom_bateau], id_joueur)["position"] == position
+    assert Enum.at(structure[nom_bateau], id_joueur)["orientation"] == orientation
   end
 
   test "Positionner deux bateaux sur une même case" do
+    {:ok, structure} = read_initial_state()
+    nom_bateau = "torpilleur"
+    position = "C3"
+    id_joueur = 0
+    orientation = "horizontal"
+
+    structure = positionner_bateau(structure, id_joueur, nom_bateau, position, orientation)
+
+    nom_bateau = "porte-avion"
+    position = "A3"
+    orientation = "vertical"
+
+    structure = positionner_bateau(structure, id_joueur, nom_bateau, position, orientation)
+    assert Enum.at(structure[nom_bateau], id_joueur)["position"] == ""
+    assert Enum.at(structure[nom_bateau], id_joueur)["orientation"] == ""
 
   end
 
   test "Positionner un bateau déjà placé" do
+    {:ok, structure} = read_initial_state()
+    nom_bateau = "torpilleur"
+    position = "A1"
+    id_joueur = 0
+    orientation = "horizontal"
 
-  end
+    structure = positionner_bateau(structure, id_joueur, nom_bateau, position, orientation)
 
-  test "Ajouter un bateau sur la grille n'importe où" do
+    assert Enum.at(structure[nom_bateau], id_joueur)["position"] == position
+    assert Enum.at(structure[nom_bateau], id_joueur)["orientation"] == orientation
+
+    position = "B5"
+    orientation = "vertical"
+
+    structure = positionner_bateau(structure, id_joueur, nom_bateau, position, orientation)
+
+    assert Enum.at(structure[nom_bateau], id_joueur)["position"] == position
+    assert Enum.at(structure[nom_bateau], id_joueur)["orientation"] == orientation
 
   end
 
   test "Enlever un bateau" do
+    {:ok, structure} = read_initial_state()
+    nom_bateau = "torpilleur"
+    position = "A1"
+    id_joueur = 0
+    orientation = "horizontal"
+
+    structure = positionner_bateau(structure, id_joueur, nom_bateau, position, orientation)
+
+    assert Enum.at(structure[nom_bateau], id_joueur)["position"] == position
+    assert Enum.at(structure[nom_bateau], id_joueur)["orientation"] == orientation
+
+    structure = enlever_bateau(structure, id_joueur, nom_bateau)
+
+    assert Enum.at(structure[nom_bateau], id_joueur)["position"] == ""
+    assert Enum.at(structure[nom_bateau], id_joueur)["orientation"] == ""
 
   end
 
