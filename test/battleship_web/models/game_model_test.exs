@@ -150,10 +150,37 @@ defmodule BattleshipWeb.GameModelTest do
   end
 
   test "Faire la rotation d'un bateau" do
+    {:ok, structure} = read_initial_state()
+    nom_bateau = "torpilleur"
+    position = "A1"
+    id_joueur = 0
+    orientation = "horizontal"
+
+    structure = positionner_bateau(structure, id_joueur, nom_bateau, position, orientation)
+    structure = rotation_bateau(structure, id_joueur, nom_bateau)
+
+    assert Enum.at(structure[nom_bateau], id_joueur)["position"] == "A1"
+    assert Enum.at(structure[nom_bateau], id_joueur)["orientation"] == "vertical"
 
   end
 
   test "Faire la rotation d'un bateau impossible" do
+    {:ok, structure} = read_initial_state()
+    nom_bateau = "torpilleur"
+    position = "B1"
+    id_joueur = 0
+    orientation = "horizontal"
+    structure = positionner_bateau(structure, id_joueur, nom_bateau, position, orientation)
+
+    nom_bateau = "sous-marin"
+    position = "A1"
+    structure = positionner_bateau(structure, id_joueur, nom_bateau, position, orientation)
+
+
+    structure = rotation_bateau(structure, id_joueur, nom_bateau)
+
+    assert Enum.at(structure[nom_bateau], id_joueur)["position"] == position
+    assert Enum.at(structure[nom_bateau], id_joueur)["orientation"] == "horizontal"
 
   end
 

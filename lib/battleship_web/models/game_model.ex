@@ -141,10 +141,14 @@ defmodule Battleship.Game do
   @doc """
   Check if there is a boat placed on a position on the grid.
   """
-  def position_est_vide(structure, id_joueur, position) do
+  def position_est_vide(structure, id_joueur, position, nom_bateau_a_positionner) do
     bateaux = obtenir_noms_bateaux()
-    positions = Enum.flat_map(bateaux, &(get_all_positions_bateau(structure, id_joueur, &1)))
+    positions = Enum.flat_map(bateaux, &(if nom_bateau_a_positionner != &1, do: get_all_positions_bateau(structure, id_joueur, &1), else: []))
     Enum.all?(positions, &(&1 != position))
+  end
+
+  def position_est_vide(structure, id_joueur, position) do
+    position_est_vide(structure, id_joueur, position, "")
   end
 
   @doc """
@@ -166,7 +170,7 @@ defmodule Battleship.Game do
     nb_cases = obtenir_nb_cases(nom_bateau)
     nouvelles_positions_bateau = calculer_positions(position, nb_cases, orientation)
 
-    positions_vides = Enum.map(nouvelles_positions_bateau, &(position_est_vide(structure, id_joueur, &1)))
+    positions_vides = Enum.map(nouvelles_positions_bateau, &(position_est_vide(structure, id_joueur, &1, nom_bateau)))
 
     if Enum.all?(positions_vides) do
       structure = modifier_position_bateau(structure, id_joueur, nom_bateau, position)
@@ -191,6 +195,24 @@ defmodule Battleship.Game do
 
   """
   def rotation_bateau(structure, id_joueur, nom_bateau) do
+    nb_cases = obtenir_nb_cases(nom_bateau)
+    bateau = Enum.at(structure[nom_bateau], id_joueur)
+
+    trouver_nouvelle_orientation = fn() ->
+      case bateau["orientation"] do
+        "horizontal" -> "vertical"
+        "vertical" -> "horizontal"
+      end
+    end
+    nouvelle_orientation = trouver_nouvelle_orientation.()
+    nouvelles_positions_bateau = calculer_positions(bateau["position"], nb_cases, nouvelle_orientation)
+    positions_vides = Enum.map(nouvelles_positions_bateau, &(position_est_vide(structure, id_joueur, &1, nom_bateau)))
+
+    if Enum.all?(positions_vides) do
+      modifier_orientation_bateau(structure, id_joueur, nom_bateau)
+    else
+      structure
+    end
 
   end
 
