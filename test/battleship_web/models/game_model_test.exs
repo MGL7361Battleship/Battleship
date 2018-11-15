@@ -64,18 +64,6 @@ defmodule BattleshipWeb.GameModelTest do
     assert Enum.at(nouv_s["monde"]["joueur"], id_joueur) == nom_joueur
   end
 
-  test "Change l'état d'une case" do
-    {:ok, structure} = read_initial_state()
-    nom_bateau = "torpilleur"
-    position_case = 1
-    nouveau_statut = "Modifié"
-    id_joueur = 0
-
-    new_state = update_etat_case(structure, id_joueur, nom_bateau, position_case, nouveau_statut)
-    bateau_modifie = Enum.at new_state[nom_bateau], id_joueur
-    assert Enum.at(bateau_modifie["etat_cases"], position_case) == nouveau_statut
-  end
-
   test "Positionner un bateau" do
     {:ok, structure} = read_initial_state()
     nom_bateau = "torpilleur"
@@ -185,14 +173,73 @@ defmodule BattleshipWeb.GameModelTest do
   end
 
   test "Attaquer une position vide" do
+    {:ok, structure} = read_initial_state()
+    position = "B1"
+    id_joueur_attaquant = 0
+    id_joueur_attaque = 1
+    structure = attaquer_position(structure, id_joueur_attaquant, id_joueur_attaque, position)
+
+    j1_cases_touchees = Enum.at(structure["case_touchees"], id_joueur_attaquant)
+    j1_cases_manquees = Enum.at(structure["case_manquees"], id_joueur_attaquant)
+
+    j2_cases_touchees = Enum.at(structure["case_touchees"], id_joueur_attaque)
+    j2_cases_manquees = Enum.at(structure["case_manquees"], id_joueur_attaque)
+
+    assert length(j1_cases_manquees) == 1
+    assert length(j2_cases_manquees) == 0
+    assert length(j1_cases_touchees) == 0
+    assert length(j2_cases_touchees) == 0
 
   end
 
   test "Attaquer une position occupée" do
+    {:ok, structure} = read_initial_state()
+    position = "B1"
+    orientation = "horizontal"
+    id_joueur_attaquant = 0
+    id_joueur_attaque = 1
+
+    structure = positionner_bateau(structure, id_joueur_attaque, "torpilleur", position, orientation)
+    structure = attaquer_position(structure, id_joueur_attaquant, id_joueur_attaque, position)
+    structure = attaquer_position(structure, id_joueur_attaquant, id_joueur_attaque, "B2")
+
+    j1_cases_touchees = Enum.at(structure["case_touchees"], id_joueur_attaquant)
+    j1_cases_manquees = Enum.at(structure["case_manquees"], id_joueur_attaquant)
+
+    j2_cases_touchees = Enum.at(structure["case_touchees"], id_joueur_attaque)
+    j2_cases_manquees = Enum.at(structure["case_manquees"], id_joueur_attaque)
+
+    assert length(j1_cases_manquees) == 0
+    assert length(j2_cases_manquees) == 0
+    assert length(j1_cases_touchees) == 2
+    assert length(j2_cases_touchees) == 0
 
   end
 
   test "Attaquer deux fois la même position" do
+    {:ok, structure} = read_initial_state()
+    position = "B1"
+    orientation = "horizontal"
+    id_joueur_attaquant = 0
+    id_joueur_attaque = 1
+
+    structure = positionner_bateau(structure, id_joueur_attaque, "torpilleur", position, orientation)
+    structure = attaquer_position(structure, id_joueur_attaquant, id_joueur_attaque, position)
+    structure = attaquer_position(structure, id_joueur_attaquant, id_joueur_attaque, position)
+
+    structure = attaquer_position(structure, id_joueur_attaquant, id_joueur_attaque, "D5")
+    structure = attaquer_position(structure, id_joueur_attaquant, id_joueur_attaque, "D5")
+
+    j1_cases_touchees = Enum.at(structure["case_touchees"], id_joueur_attaquant)
+    j1_cases_manquees = Enum.at(structure["case_manquees"], id_joueur_attaquant)
+
+    j2_cases_touchees = Enum.at(structure["case_touchees"], id_joueur_attaque)
+    j2_cases_manquees = Enum.at(structure["case_manquees"], id_joueur_attaque)
+
+    assert length(j1_cases_manquees) == 1
+    assert length(j2_cases_manquees) == 0
+    assert length(j1_cases_touchees) == 1
+    assert length(j2_cases_touchees) == 0
 
   end
 

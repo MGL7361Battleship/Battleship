@@ -23,17 +23,6 @@ defmodule Battleship.Game do
   end
 
   @doc """
-  Change the state of a cell on the grid with a new state.
-  """
-  def update_etat_case(structure, id_joueur, nom_bateau, position_case, nouveau_statut) do
-    bateau_a_modifier = Enum.at(structure[nom_bateau], id_joueur)
-    etat_cases = bateau_a_modifier["etat_cases"]
-    nouvel_etat_cases = List.replace_at(etat_cases, position_case, nouveau_statut)
-    nouveau_bateau = put_in(bateau_a_modifier["etat_cases"], nouvel_etat_cases)
-    put_in(structure[nom_bateau], List.replace_at(structure[nom_bateau], id_joueur, nouveau_bateau))
-  end
-
-  @doc """
   Change the name of a player
   """
   def changer_nom_joueur(structure, id_joueur, nom_joueur) do
@@ -219,7 +208,36 @@ defmodule Battleship.Game do
   @doc """
 
   """
-  def attaquer_position(structure, id_joueur, position) do
+  def attaquer_position(structure, id_joueur_attaquant, id_joueur_attaque, position) do
+
+    verifier_deja_attaque = fn() ->
+      cases_touchees = Enum.at(structure["case_touchees"], id_joueur_attaquant)
+      cases_manquees = Enum.at(structure["case_manquees"], id_joueur_attaquant)
+      cases = cases_manquees ++ cases_touchees
+      Enum.any?(cases, &(position == &1))
+    end
+    deja_attaque = verifier_deja_attaque.()
+    position_vide = position_est_vide(structure, id_joueur_attaque, position)
+
+    ajouter_position_touchees = fn() ->
+      cases_touchees = Enum.at(structure["case_touchees"], id_joueur_attaquant)
+      cases_touchees = cases_touchees ++ [position]
+      nouvelles_cases_touchees = List.replace_at structure["case_touchees"], id_joueur_attaquant, cases_touchees
+      put_in structure["case_touchees"], nouvelles_cases_touchees
+    end
+
+    ajouter_position_manquees = fn() ->
+      cases_manquees = Enum.at(structure["case_manquees"], id_joueur_attaquant)
+      cases_manquees = cases_manquees ++ [position]
+      nouvelles_cases_manquees = List.replace_at structure["case_manquees"], id_joueur_attaquant, cases_manquees
+      put_in structure["case_manquees"], nouvelles_cases_manquees
+    end
+
+    cond do
+      deja_attaque -> structure
+      position_vide -> ajouter_position_manquees.()
+      !position_vide -> ajouter_position_touchees.()
+    end
 
   end
 

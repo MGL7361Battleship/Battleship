@@ -1,7 +1,8 @@
 {
     "monde": {
         "etat_partie": "Non démarré",
-        "joueur": ["Joueur 1", "Joueur 2"]
+        "joueur": ["Joueur 1", "Joueur 2"],
+        "tour_joueur": 0
     },
     "case_touchees": [
         [],
@@ -14,61 +15,51 @@
     "torpilleur": [
         {
             "position": "",
-            "orientation": "",
-            "etat_cases": ["Intact", "Intact"]
+            "orientation": ""
         }, 
         {
             "position": "",
-            "orientation": "",
-            "etat_cases": ["Intact", "Intact"]
+            "orientation": ""
         }
     ],
     "porte-avion": [
         {
             "position": "",
-            "orientation": "",
-            "etat_cases": ["Intact", "Intact", "Intact", "Intact", "Intact"]
+            "orientation": ""
         }, 
         {
             "position": "",
-            "orientation": "",
-            "etat_cases": ["Intact", "Intact", "Intact", "Intact", "Intact"]
+            "orientation": ""
         }
     ],
     "croiseur": [
         {
             "position": "",
-            "orientation": "",
-            "etat_cases": ["Intact", "Intact", "Intact", "Intact"]
+            "orientation": ""
         }, 
         {
             "position": "",
-            "orientation": "",
-            "etat_cases": ["Intact", "Intact", "Intact", "Intact"]
+            "orientation": ""
         }
     ],
     "sous-marin": [
         {
             "position": "",
-            "orientation": "",
-            "etat_cases": ["Intact", "Intact", "Intact"]
+            "orientation": ""
         }, 
         {
             "position": "",
-            "orientation": "",
-            "etat_cases": ["Intact", "Intact", "Intact"]
+            "orientation": ""
         }
     ],
     "contre-torpilleur": [
         {
             "position": "",
-            "orientation": "",
-            "etat_cases": ["Intact", "Intact", "Intact"]
+            "orientation": ""
         }, 
         {
             "position": "",
-            "orientation": "",
-            "etat_cases": ["Intact", "Intact", "Intact"]
+            "orientation": ""
         }
     ]
 }
