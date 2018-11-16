@@ -1,4 +1,4 @@
-defmodule Battleship.Game do
+defmodule Battleship.Game.Model do
 
   @doc """
   Lis un fichier JSON et retourne son contenu.
@@ -270,6 +270,10 @@ defmodule Battleship.Game do
     cases_touchees = Enum.at(structure["case_touchees"], id_joueur)
     positions = get_all_positions_bateau(structure, id_joueur_adverse, nom_bateau)
     Enum.map(positions, &(if Enum.member?(cases_touchees, &1), do: "Touché", else: "Intact"))
+  end
+
+  def obtenir_etat_partie(structure, id_joueur) do
+    structure
   end
 
 end

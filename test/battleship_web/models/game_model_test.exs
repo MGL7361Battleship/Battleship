@@ -1,6 +1,6 @@
 defmodule BattleshipWeb.GameModelTest do
   use ExUnit.Case
-  import Battleship.Game
+  import Battleship.Game.Model
 
   test "Déterminer si la case est vide" do
     {:ok, structure} = read_initial_state()
