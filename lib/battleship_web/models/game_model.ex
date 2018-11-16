@@ -55,7 +55,13 @@ defmodule Battleship.Game do
   Get the name of the boats.
   """
   def obtenir_noms_bateaux() do
-    ["torpilleur", "contre-torpilleur", "sous-marin", "porte-avion", "croiseur"]
+    [
+      "torpilleur",
+      "contre-torpilleur",
+      "sous-marin",
+      "porte-avion",
+      "croiseur"
+    ]
   end
 
   def obtenir_nb_cases(nom_bateau) do
@@ -206,7 +212,10 @@ defmodule Battleship.Game do
   end
 
   @doc """
-
+  Attaque une position
+  Si la position adverse est occupée, la position se retrouve dans les cases_touchees
+  Si la position est vide, la position se retrouve dans les cases_manquees
+  Si la position a déjà été attaquée, rien n'est changé
   """
   def attaquer_position(structure, id_joueur_attaquant, id_joueur_attaque, position) do
 
@@ -234,11 +243,22 @@ defmodule Battleship.Game do
     end
 
     cond do
-      deja_attaque -> structure
-      position_vide -> ajouter_position_manquees.()
-      !position_vide -> ajouter_position_touchees.()
+      deja_attaque -> {false, structure}
+      position_vide -> {true, ajouter_position_manquees.()}
+      !position_vide -> {true, ajouter_position_touchees.()}
     end
 
+  end
+
+  @doc """
+  La partie est terminée lorsque le nombre de cases touchées est égal au nombre de cases de bateaux du joueur adverse
+  """
+  def determiner_joueur_gagnant(structure, id_joueur) do
+    cases_touchees = Enum.at(structure["case_touchees"], id_joueur)
+    nb_cases_touchees = length(cases_touchees)
+    noms_bateaux = obtenir_noms_bateaux()
+    nb_cases_bateaux = Enum.sum(Enum.map(noms_bateaux, &(obtenir_nb_cases(&1))))
+    nb_cases_touchees == nb_cases_bateaux
   end
 
 end

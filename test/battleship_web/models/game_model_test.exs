@@ -177,7 +177,7 @@ defmodule BattleshipWeb.GameModelTest do
     position = "B1"
     id_joueur_attaquant = 0
     id_joueur_attaque = 1
-    structure = attaquer_position(structure, id_joueur_attaquant, id_joueur_attaque, position)
+    {true, structure} = attaquer_position(structure, id_joueur_attaquant, id_joueur_attaque, position)
 
     j1_cases_touchees = Enum.at(structure["case_touchees"], id_joueur_attaquant)
     j1_cases_manquees = Enum.at(structure["case_manquees"], id_joueur_attaquant)
@@ -200,8 +200,8 @@ defmodule BattleshipWeb.GameModelTest do
     id_joueur_attaque = 1
 
     structure = positionner_bateau(structure, id_joueur_attaque, "torpilleur", position, orientation)
-    structure = attaquer_position(structure, id_joueur_attaquant, id_joueur_attaque, position)
-    structure = attaquer_position(structure, id_joueur_attaquant, id_joueur_attaque, "B2")
+    {true, structure} = attaquer_position(structure, id_joueur_attaquant, id_joueur_attaque, position)
+    {true, structure} = attaquer_position(structure, id_joueur_attaquant, id_joueur_attaque, "B2")
 
     j1_cases_touchees = Enum.at(structure["case_touchees"], id_joueur_attaquant)
     j1_cases_manquees = Enum.at(structure["case_manquees"], id_joueur_attaquant)
@@ -224,11 +224,11 @@ defmodule BattleshipWeb.GameModelTest do
     id_joueur_attaque = 1
 
     structure = positionner_bateau(structure, id_joueur_attaque, "torpilleur", position, orientation)
-    structure = attaquer_position(structure, id_joueur_attaquant, id_joueur_attaque, position)
-    structure = attaquer_position(structure, id_joueur_attaquant, id_joueur_attaque, position)
+    {true, structure} = attaquer_position(structure, id_joueur_attaquant, id_joueur_attaque, position)
+    {false, structure} = attaquer_position(structure, id_joueur_attaquant, id_joueur_attaque, position)
 
-    structure = attaquer_position(structure, id_joueur_attaquant, id_joueur_attaque, "D5")
-    structure = attaquer_position(structure, id_joueur_attaquant, id_joueur_attaque, "D5")
+    {true, structure} = attaquer_position(structure, id_joueur_attaquant, id_joueur_attaque, "D5")
+    {false, structure} = attaquer_position(structure, id_joueur_attaquant, id_joueur_attaque, "D5")
 
     j1_cases_touchees = Enum.at(structure["case_touchees"], id_joueur_attaquant)
     j1_cases_manquees = Enum.at(structure["case_manquees"], id_joueur_attaquant)
@@ -240,6 +240,48 @@ defmodule BattleshipWeb.GameModelTest do
     assert length(j2_cases_manquees) == 0
     assert length(j1_cases_touchees) == 1
     assert length(j2_cases_touchees) == 0
+
+  end
+
+  test "Déterminer si la partie est terminée" do
+    {:ok, structure} = read_initial_state()
+
+    structure = positionner_bateau(structure, 1, "torpilleur", "A1", "horizontal")
+    structure = positionner_bateau(structure, 1, "contre-torpilleur", "B1", "horizontal")
+    structure = positionner_bateau(structure, 1, "sous-marin", "C1", "horizontal")
+    structure = positionner_bateau(structure, 1, "porte-avion", "D1", "horizontal")
+    structure = positionner_bateau(structure, 1, "croiseur", "E1", "horizontal")
+
+    # "torpilleur" -> 2
+    {true, structure} = attaquer_position(structure, 0, 1, "A1")
+    {true, structure} = attaquer_position(structure, 0, 1, "A2")
+
+    # "contre-torpilleur" -> 3
+    {true, structure} = attaquer_position(structure, 0, 1, "B1")
+    {true, structure} = attaquer_position(structure, 0, 1, "B2")
+    {true, structure} = attaquer_position(structure, 0, 1, "B3")
+
+    # "sous-marin" -> 3
+    {true, structure} = attaquer_position(structure, 0, 1, "C1")
+    {true, structure} = attaquer_position(structure, 0, 1, "C2")
+    {true, structure} = attaquer_position(structure, 0, 1, "C3")
+
+    # "porte-avion" -> 5
+    {true, structure} = attaquer_position(structure, 0, 1, "D1")
+    {true, structure} = attaquer_position(structure, 0, 1, "D2")
+    {true, structure} = attaquer_position(structure, 0, 1, "D3")
+    {true, structure} = attaquer_position(structure, 0, 1, "D4")
+    {true, structure} = attaquer_position(structure, 0, 1, "D5")
+
+    # "croiseur" -> 4
+    {true, structure} = attaquer_position(structure, 0, 1, "E1")
+    {true, structure} = attaquer_position(structure, 0, 1, "E2")
+    {true, structure} = attaquer_position(structure, 0, 1, "E3")
+    assert determiner_joueur_gagnant(structure, 0) == false
+    {true, structure} = attaquer_position(structure, 0, 1, "E4")
+
+    assert determiner_joueur_gagnant(structure, 0) == true
+    assert determiner_joueur_gagnant(structure, 1) == false
 
   end
 
