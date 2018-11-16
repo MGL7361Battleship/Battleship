@@ -1,7 +1,7 @@
 defmodule Battleship.Game do
 
   @doc """
-  Read a JSON file and returns its content
+  Lis un fichier JSON et retourne son contenu.
   """
   def get_json(filename) do
     with {:ok, body} <- File.read(filename),
@@ -9,21 +9,21 @@ defmodule Battleship.Game do
   end
 
   @doc """
-  Return the initial state of the application
+  Retourne l'état initial de l'application.
   """
   def read_initial_state() do
     get_json("lib/battleship_web/models/initial_state.json")
   end
 
   @doc """
-  Receives the name of the player and return it's index to access other related data
+  Reçois le nom du joueur et retroune son indexe pour accéder aux autres données associées.
   """
   def obtenir_index_joueur(structure, nom_joueur) do
     Enum.find_index(structure["monde"]["joueur"], &(&1 == nom_joueur))
   end
 
   @doc """
-  Change the name of a player
+  Change le nom du joueur.
   """
   def changer_nom_joueur(structure, id_joueur, nom_joueur) do
     nouveaux_joueurs = List.replace_at structure["monde"]["joueur"], id_joueur, nom_joueur
@@ -31,8 +31,8 @@ defmodule Battleship.Game do
   end
 
   @doc """
-  Change the orientation of a boat.
-  No validation is being done.
+  Change l'orientatin du bateau.
+  Aucune validation n'est faite.
   """
   def modifier_orientation_bateau(structure, id_joueur, nom_bateau) do
     bateau = Enum.at(structure[nom_bateau], id_joueur)
@@ -52,7 +52,7 @@ defmodule Battleship.Game do
   end
 
   @doc """
-  Get the name of the boats.
+  Obtenir le nom des bateaux.
   """
   def obtenir_noms_bateaux() do
     [
@@ -75,25 +75,25 @@ defmodule Battleship.Game do
   end
 
     @doc """
-  If no orientation is provided, return an empty list
+  Si aucune orientation n'est donnée, retourne une liste vide.
   """
   def calculer_positions(_, _, "") do
     []
   end
 
     @doc """
-  If no position is provided, return an empty list
+  Si aucune orientation n'est donnée, retourne une liste vide.
   """
   def calculer_positions("", _, _) do
     []
   end
 
   @doc """
-  receives a position and how many cells in the grid we want
-  returns a list of positions including the one received in parameter
+  Reçois une position et le nombre de cases que nous voulons dans la grille.
+  Retourne une liste des positions incluant celle reçue en paramètre.
 
-  Example: calculer_positions_horizontales("A1", 3)
-  Returns ["A1", "A2", "A3"]
+  Exemple: calculer_positions_horizontales("A1", 3)
+  Retourne ["A1", "A2", "A3"]
   """
   def calculer_positions(position, nb_cases, "horizontal") do
     prochaine_position_horizontale = fn(count) ->
@@ -108,7 +108,7 @@ defmodule Battleship.Game do
   end
 
   @doc """
-  Same as the horizontal function
+  Même fonctionnalités que la fonction horizontale.
   """
   def calculer_positions(position, nb_cases, "vertical") do
     prochaine_position_verticale = fn(count) ->
@@ -123,7 +123,7 @@ defmodule Battleship.Game do
   end
 
   @doc """
-  get all the positions of a boat that is placed on the grid.
+  Obtenir toutes les positions d'un bateau sur la grille.
   """
   def get_all_positions_bateau(structure, id_joueur, nom_bateau) do
     bateau = Enum.at(structure[nom_bateau], id_joueur)
@@ -134,7 +134,7 @@ defmodule Battleship.Game do
   end
 
   @doc """
-  Check if there is a boat placed on a position on the grid.
+  Vérifie si il y a un bateau placé à une position sur la grille.
   """
   def position_est_vide(structure, id_joueur, position, nom_bateau_a_positionner) do
     bateaux = obtenir_noms_bateaux()
@@ -147,8 +147,8 @@ defmodule Battleship.Game do
   end
 
   @doc """
-  Modify the position of a boat.
-  No validation is being done beforehand.
+  Modifie la position d'un bateau.
+  Aucune validation n'est faite au préalable.
   """
   def modifier_position_bateau(structure, id_joueur, nom_bateau, position) do
     bateau = Enum.at(structure[nom_bateau], id_joueur)
@@ -158,8 +158,8 @@ defmodule Battleship.Game do
   end
 
   @doc """
-  Place a boat on the grid.
-  Will not work if a position is occupied.
+  Place un bateau sur la grille.
+  Ne fonctionnera pas si une position est occupée par un autre bateau.
   """
   def positionner_bateau(structure, id_joueur, nom_bateau, position, orientation) do
     nb_cases = obtenir_nb_cases(nom_bateau)
@@ -176,7 +176,7 @@ defmodule Battleship.Game do
   end
 
   @doc """
-
+    Retire un bateau de la grille.
   """
   def enlever_bateau(structure, id_joueur, nom_bateau) do
     bateau = Enum.at(structure[nom_bateau], id_joueur)
@@ -187,7 +187,9 @@ defmodule Battleship.Game do
   end
 
   @doc """
-
+    Modifie l'orientation d'un bateau:
+      de horizontal à vertical ou
+      de vertical à horizontal.
   """
   def rotation_bateau(structure, id_joueur, nom_bateau) do
     nb_cases = obtenir_nb_cases(nom_bateau)
