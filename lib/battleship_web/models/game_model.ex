@@ -261,4 +261,13 @@ defmodule Battleship.Game do
     nb_cases_touchees == nb_cases_bateaux
   end
 
+  @doc """
+  Obtenir l'état des cases d'un bateau donné
+  """
+  def obtenir_etat_cases_bateau(structure, id_joueur, id_joueur_adverse, nom_bateau) do
+    cases_touchees = Enum.at(structure["case_touchees"], id_joueur)
+    positions = get_all_positions_bateau(structure, id_joueur_adverse, nom_bateau)
+    Enum.map(positions, &(if Enum.member?(cases_touchees, &1), do: "Touché", else: "Intact"))
+  end
+
 end

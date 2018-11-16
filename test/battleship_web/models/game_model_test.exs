@@ -285,4 +285,23 @@ defmodule BattleshipWeb.GameModelTest do
 
   end
 
+  test "Obtenir l'état d'un bateau" do
+    {:ok, structure} = read_initial_state()
+
+    nom_bateau = "porte-avion"
+    id_joueur = 0
+    id_joueur_adverse = 1
+    orientation = "horizontal"
+
+    structure = positionner_bateau(structure, id_joueur_adverse, nom_bateau, "A1", orientation)
+    assert obtenir_etat_cases_bateau(structure, id_joueur, id_joueur_adverse, nom_bateau) == ["Intact", "Intact", "Intact", "Intact", "Intact"]
+
+    {true, structure} = attaquer_position(structure, id_joueur, id_joueur_adverse, "A1")
+    assert obtenir_etat_cases_bateau(structure, id_joueur, id_joueur_adverse, nom_bateau) == ["Touché", "Intact", "Intact", "Intact", "Intact"]
+
+    {true, structure} = attaquer_position(structure, id_joueur, id_joueur_adverse, "A4")
+    assert obtenir_etat_cases_bateau(structure, id_joueur, id_joueur_adverse, nom_bateau) == ["Touché", "Intact", "Intact", "Touché", "Intact"]
+
+  end
+
 end
