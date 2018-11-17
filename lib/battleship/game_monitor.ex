@@ -30,7 +30,7 @@ defmodule Battleship.Game.Monitor do
     Agent.update(__MODULE__, fn state -> Model.determiner_joueur_gagnant(state, id_joueur) end)
   end
 
-  def obtenir_etat_partie(id_joueur) do
+  def obtenir_etat_partie(id_joueur, id_joueur_adverse) do
     Agent.update(__MODULE__, fn state -> Model.obtenir_etat_partie(state, id_joueur) end)
   end
 

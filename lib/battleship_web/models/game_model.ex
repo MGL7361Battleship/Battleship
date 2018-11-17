@@ -1,7 +1,7 @@
 defmodule Battleship.Game.Model do
 
   @doc """
-  Lis un fichier JSON et retourne son contenu.
+  Lit un fichier JSON et retourne son contenu.
   """
   def get_json(filename) do
     with {:ok, body} <- File.read(filename),
@@ -16,7 +16,7 @@ defmodule Battleship.Game.Model do
   end
 
   @doc """
-  Reçois le nom du joueur et retroune son indexe pour accéder aux autres données associées.
+  Reçoit le nom du joueur et retourne son indexe pour accéder aux autres données associées.
   """
   def obtenir_index_joueur(structure, nom_joueur) do
     Enum.find_index(structure["monde"]["joueur"], &(&1 == nom_joueur))
@@ -89,7 +89,7 @@ defmodule Battleship.Game.Model do
   end
 
   @doc """
-  Reçois une position et le nombre de cases que nous voulons dans la grille.
+  Reçoit une position et le nombre de cases que nous voulons dans la grille.
   Retourne une liste des positions incluant celle reçue en paramètre.
 
   Exemple: calculer_positions_horizontales("A1", 3)
@@ -267,13 +267,27 @@ defmodule Battleship.Game.Model do
   Obtenir l'état des cases d'un bateau donné
   """
   def obtenir_etat_cases_bateau(structure, id_joueur, id_joueur_adverse, nom_bateau) do
-    cases_touchees = Enum.at(structure["case_touchees"], id_joueur)
-    positions = get_all_positions_bateau(structure, id_joueur_adverse, nom_bateau)
+    cases_touchees = Enum.at(structure["case_touchees"], id_joueur_adverse)
+    positions = get_all_positions_bateau(structure, id_joueur, nom_bateau)
     Enum.map(positions, &(if Enum.member?(cases_touchees, &1), do: "Touché", else: "Intact"))
   end
 
-  def obtenir_etat_partie(structure, id_joueur) do
-    structure
+  @doc """
+    Obtenir les cases touchées, les cases manquées et l'état des bateaux du joueur
+  """
+  def obtenir_etat_partie(structure, id_joueur, id_joueur_adverse) do
+    cases_touchees = Enum.at(structure["case_touchees"], id_joueur)
+    cases_manquees = Enum.at(structure["case_manquees"], id_joueur)
+    noms_bateaux = obtenir_noms_bateaux()
+    etats = Enum.map(noms_bateaux, &(obtenir_etat_cases_bateau(structure, id_joueur, id_joueur_adverse, &1)))
+    positions = Enum.map(noms_bateaux, &(get_all_positions_bateau(structure, id_joueur, &1)))
+
+    etats_positions = Enum.zip(positions, etats)
+    etats_positions = Enum.map(etats_positions, fn {pos, etat} -> Enum.zip(pos, etat) |> Enum.into(%{}) end)
+
+    etat_partie = Enum.zip(noms_bateaux, etats_positions) |> Enum.into(%{})
+    etat_partie = put_in(etat_partie["cases_touchees"], cases_touchees)
+    put_in(etat_partie["cases_manquees"], cases_manquees)
   end
 
 end

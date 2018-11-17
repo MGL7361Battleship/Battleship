@@ -294,13 +294,38 @@ defmodule BattleshipWeb.GameModelTest do
     orientation = "horizontal"
 
     structure = positionner_bateau(structure, id_joueur_adverse, nom_bateau, "A1", orientation)
-    assert obtenir_etat_cases_bateau(structure, id_joueur, id_joueur_adverse, nom_bateau) == ["Intact", "Intact", "Intact", "Intact", "Intact"]
+    assert obtenir_etat_cases_bateau(structure, id_joueur_adverse, id_joueur, nom_bateau) == ["Intact", "Intact", "Intact", "Intact", "Intact"]
 
     {true, structure} = attaquer_position(structure, id_joueur, id_joueur_adverse, "A1")
-    assert obtenir_etat_cases_bateau(structure, id_joueur, id_joueur_adverse, nom_bateau) == ["Touché", "Intact", "Intact", "Intact", "Intact"]
+    assert obtenir_etat_cases_bateau(structure, id_joueur_adverse, id_joueur, nom_bateau) == ["Touché", "Intact", "Intact", "Intact", "Intact"]
 
     {true, structure} = attaquer_position(structure, id_joueur, id_joueur_adverse, "A4")
-    assert obtenir_etat_cases_bateau(structure, id_joueur, id_joueur_adverse, nom_bateau) == ["Touché", "Intact", "Intact", "Touché", "Intact"]
+    assert obtenir_etat_cases_bateau(structure, id_joueur_adverse, id_joueur, nom_bateau) == ["Touché", "Intact", "Intact", "Touché", "Intact"]
+
+  end
+
+  test "Obtenir l'état d'une partie" do
+    {:ok, structure} = read_initial_state()
+
+    nom_bateau = "torpilleur"
+    id_joueur = 0
+    id_joueur_adverse = 1
+    orientation = "horizontal"
+
+    structure = positionner_bateau(structure, id_joueur, nom_bateau, "A1", orientation)
+    {true, structure} = attaquer_position(structure, id_joueur_adverse, id_joueur, "A1")
+    {true, structure} = attaquer_position(structure, id_joueur, id_joueur_adverse, "C1")
+
+    etat = obtenir_etat_partie(structure, id_joueur, id_joueur_adverse)
+    assert etat == %{
+      "cases_manquees" => ["C1"],
+      "cases_touchees" => [],
+      "contre-torpilleur" => %{},
+      "croiseur" => %{},
+      "porte-avion" => %{},
+      "sous-marin" => %{},
+      "torpilleur" => %{"A1" => "Touché", "A2" => "Intact"}
+    }
 
   end
 
