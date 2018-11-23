@@ -21,8 +21,8 @@ defmodule BattleshipWeb.Router do
     post "/enlever_bateau", ApiController, :enlever_bateau
     post "/rotation_bateau", ApiController, :rotation_bateau
     post "/attaquer_position", ApiController, :attaquer_position
-    post "/determiner_joueur_gagnant", ApiController, :determiner_joueur_gagnant
-    get "/obtenir_etat_partie", ApiController, :obtenir_etat_partie
+    post "/obtenir_etat_partie", ApiController, :obtenir_etat_partie
+    get "/view_state", ApiController, :view_state
   end
 
   scope "/", BattleshipWeb do

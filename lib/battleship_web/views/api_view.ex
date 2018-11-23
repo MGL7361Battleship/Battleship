@@ -7,4 +7,8 @@ defmodule BattleshipWeb.ApiView do
     %{state: state}
   end
 
+  def render("api_view_state.json", %{"state" => state}) do
+    %{state: state}
+  end
+
 end
