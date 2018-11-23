@@ -15,6 +15,11 @@ Vous pouvez maintenant visiter localhost:4000 depuis votre navigateur.
 
 Exécution
 Pour exécuter le prototype, vous devez démarrer le serveur avec mix phx.server et utiliser les api développés pour jouer. Voici les actions que vous pouvez effectuer :
+Phase de préparation
 changer_nom_joueur(id_joueur, nom_joueur)
 positionner_bateau(id_joueur, nom_bateau, position, orientation)
-enlever_bateau(
+enlever_bateau(id_joueur, nom_bateau)
+rotation_bateau(id_joueur, nom_bateau)
+Phase de jeu
+attaquer_position(id_joueur_attaquant, id_joueur_attaque, position)
+obtenir_etat_partie(id_joueur, id_joueur _adverse)
