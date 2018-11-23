@@ -24,11 +24,14 @@ defmodule Battleship.Game.Monitor do
   end
 
   def attaquer_position(id_joueur_attaquant, id_joueur_attaque, position) do
-    Agent.update(__MODULE__, fn state -> Model.attaquer_position(state, id_joueur_attaquant, id_joueur_attaque, position) end)
+    Agent.update(__MODULE__, fn state ->
+      {true, state} = Model.attaquer_position(state, id_joueur_attaquant, id_joueur_attaque, position)
+      state
+    end)
   end
 
   def obtenir_etat_partie(id_joueur, id_joueur_adverse) do
-    Agent.get(__MODULE__, fn state -> state end)
+    Agent.get(__MODULE__, fn state -> Model.obtenir_etat_partie(state, id_joueur, id_joueur_adverse) end)
   end
 
   def view_state() do

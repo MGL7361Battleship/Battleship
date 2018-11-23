@@ -30,7 +30,7 @@ defmodule BattleshipWeb.ApiController do
 
   def obtenir_etat_partie(conn, %{"id_joueur" => id_joueur, "id_joueur_adverse" => id_joueur_adverse}) do
     state = Monitor.obtenir_etat_partie(id_joueur, id_joueur_adverse)
-    render conn, "api_game_status.json",  state
+    render conn, "api_game_status.json",  %{"state" => state}
   end
 
   def view_state(conn, _params) do
