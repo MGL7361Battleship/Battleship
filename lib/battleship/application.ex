@@ -14,7 +14,7 @@ defmodule Battleship.Application do
       supervisor(BattleshipWeb.Endpoint, []),
       # Start your own worker by calling: Battleship.Worker.start_link(arg1, arg2, arg3)
       # worker(Battleship.Worker, [arg1, arg2, arg3]),
-      worker(Battleship.Game.Monitor, [%{}])
+      worker(Battleship.Game.Monitor, [])
 
     ]
 
@@ -22,6 +22,7 @@ defmodule Battleship.Application do
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Battleship.Supervisor]
     Supervisor.start_link(children, opts)
+    #Battleship.Game.Monitor.start_link()
   end
 
   # Tell Phoenix to update the endpoint configuration
