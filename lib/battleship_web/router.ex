@@ -16,7 +16,13 @@ defmodule BattleshipWeb.Router do
   # Other scopes may use custom stacks.
   scope "/api", BattleshipWeb do
     pipe_through :api
-    post "/test", ApiController, :testaaa
+    post "/changer_nom_joueur", ApiController, :changer_nom_joueur
+    post "/positionner_bateau", ApiController, :positionner_bateau
+    post "/enlever_bateau", ApiController, :enlever_bateau
+    post "/rotation_bateau", ApiController, :rotation_bateau
+    post "/attaquer_position", ApiController, :attaquer_position
+    post "/determiner_joueur_gagnant", ApiController, :determiner_joueur_gagnant
+    get "/obtenir_etat_partie", ApiController, :obtenir_etat_partie
   end
 
   scope "/", BattleshipWeb do
