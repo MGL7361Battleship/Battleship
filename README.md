@@ -1,20 +1,20 @@
-# Battleship
+Battleship
+Ce projet est un prototype de Battleship réalisé en Elixir par PAQUET Benoit et EUGENE Audrey dans le cadre du cours MGL7361 à l'UQAM. Le jeu est à deux joueurs où chacun d'eux possède une grille de 11x9 cases pour placer leurs différents bateaux. Chaque devra attquer les positions de la grille où l'adversaire à posé ses bateau; si toutes les cases d'un bateau ont été touchées, ce dernier est déclaré « coulé ». Le gagnant est celui qui parvient à couler tous les bateaux de son adversaire.
 
-To start your Phoenix server:
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
-  * Install Node.js dependencies with `cd assets && npm install`
-  * Start Phoenix endpoint with `mix phx.server`
+Installation
+Pour pouvoir exécuter le prototype, il faudra tout d'abord s'assurer de faire les actions suivantes :
+Télécharger les logiciels PostSQL (pour les bases de données), Node.js et Elixir.
+Démarrer votre serveur Pheonix :
+Installation des dépendances avec mix deps.get 
+Création et migration des données avec mix ecto.create && mix ecto.migrate 
+Installation des dépendances Node.js avec cd assets && npm install 
+Démarrage de Phoenix avec mix phx.server 
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+Vous pouvez maintenant visiter localhost:4000 depuis votre navigateur.
 
-Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
-
-## Learn more
-
-  * Official website: http://www.phoenixframework.org/
-  * Guides: http://phoenixframework.org/docs/overview
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
+Exécution
+Pour exécuter le prototype, vous devez démarrer le serveur avec mix phx.server et utiliser les api développés pour jouer. Voici les actions que vous pouvez effectuer :
+changer_nom_joueur(id_joueur, nom_joueur)
+positionner_bateau(id_joueur, nom_bateau, position, orientation)
+enlever_bateau(
