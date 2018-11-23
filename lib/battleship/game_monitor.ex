@@ -2,7 +2,8 @@
 defmodule Battleship.Game.Monitor do
   alias Battleship.Game.Model
 
-  def start_link(initial_state) do
+  def start_link() do
+    {:ok, initial_state} = Model.read_initial_state()
     Agent.start_link(fn -> initial_state end, name: __MODULE__)
   end
 
@@ -26,12 +27,12 @@ defmodule Battleship.Game.Monitor do
     Agent.update(__MODULE__, fn state -> Model.attaquer_position(state, id_joueur_attaquant, id_joueur_attaque, position) end)
   end
 
-  def determiner_joueur_gagnant(id_joueur) do
-    Agent.update(__MODULE__, fn state -> Model.determiner_joueur_gagnant(state, id_joueur) end)
+  def obtenir_etat_partie(id_joueur, id_joueur_adverse) do
+    Agent.get(__MODULE__, fn state -> state end)
   end
 
-  def obtenir_etat_partie(id_joueur, id_joueur_adverse) do
-    Agent.update(__MODULE__, fn state -> Model.obtenir_etat_partie(state, id_joueur) end)
+  def view_state() do
+    Agent.get(__MODULE__, fn state -> state end)
   end
 
 end

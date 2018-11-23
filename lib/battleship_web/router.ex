@@ -13,14 +13,22 @@ defmodule BattleshipWeb.Router do
     plug :accepts, ["json"]
   end
 
+  # Other scopes may use custom stacks.
+  scope "/api", BattleshipWeb do
+    pipe_through :api
+    post "/changer_nom_joueur", ApiController, :changer_nom_joueur
+    post "/positionner_bateau", ApiController, :positionner_bateau
+    post "/enlever_bateau", ApiController, :enlever_bateau
+    post "/rotation_bateau", ApiController, :rotation_bateau
+    post "/attaquer_position", ApiController, :attaquer_position
+    post "/obtenir_etat_partie", ApiController, :obtenir_etat_partie
+    get "/view_state", ApiController, :view_state
+  end
+
   scope "/", BattleshipWeb do
     pipe_through :browser # Use the default browser stack
     get "/hello/:name", HelloController, :world
     get "/", PageController, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", BattleshipWeb do
-  #   pipe_through :api
-  # end
 end
