@@ -71,3 +71,154 @@ curl -H "Content-Type: application/json" -X POST \
 curl -H "Content-Type: application/json" -X POST \
     -d '{"id_joueur": 0, "id_joueur_adverse": 1}' \
     http://localhost:4000/api/obtenir_etat_partie
+
+curl -H "Content-Type: application/json" -X POST \
+    -d '{"id_joueur_attaquant": 0, "id_joueur_attaque": 1, "position": "H5"}' \
+    http://localhost:4000/api/attaquer_position
+
+curl -H "Content-Type: application/json" -X POST \
+    -d '{"id_joueur_attaquant": 1, "id_joueur_attaque": 0, "position": "B4"}' \
+    http://localhost:4000/api/attaquer_position
+
+curl -H "Content-Type: application/json" -X POST \
+    -d '{"id_joueur_attaquant": 0, "id_joueur_attaque": 1, "position": "I5"}' \
+    http://localhost:4000/api/attaquer_position
+
+curl -H "Content-Type: application/json" -X POST \
+    -d '{"id_joueur_attaquant": 1, "id_joueur_attaque": 0, "position": "B5"}' \
+    http://localhost:4000/api/attaquer_position
+
+curl -H "Content-Type: application/json" -X POST \
+    -d '{"id_joueur_attaquant": 0, "id_joueur_attaque": 1, "position": "J5"}' \
+    http://localhost:4000/api/attaquer_position
+
+curl -H "Content-Type: application/json" -X POST \
+    -d '{"id_joueur_attaquant": 1, "id_joueur_attaque": 0, "position": "B2"}' \
+    http://localhost:4000/api/attaquer_position
+
+curl -H "Content-Type: application/json" -X POST \
+    -d '{"id_joueur_attaquant": 0, "id_joueur_attaque": 1, "position": "D3"}' \
+    http://localhost:4000/api/attaquer_position
+
+curl -H "Content-Type: application/json" -X POST \
+    -d '{"id_joueur_attaquant": 1, "id_joueur_attaque": 0, "position": "A2"}' \
+    http://localhost:4000/api/attaquer_position
+
+curl -H "Content-Type: application/json" -X POST \
+    -d '{"id_joueur_attaquant": 0, "id_joueur_attaque": 1, "position": "D2"}' \
+    http://localhost:4000/api/attaquer_position
+
+curl -H "Content-Type: application/json" -X POST \
+    -d '{"id_joueur_attaquant": 1, "id_joueur_attaque": 0, "position": "A1"}' \
+    http://localhost:4000/api/attaquer_position
+
+curl -H "Content-Type: application/json" -X POST \
+    -d '{"id_joueur_attaquant": 0, "id_joueur_attaque": 1, "position": "E2"}' \
+    http://localhost:4000/api/attaquer_position
+
+curl -H "Content-Type: application/json" -X POST \
+    -d '{"id_joueur_attaquant": 1, "id_joueur_attaque": 0, "position": "A3"}' \
+    http://localhost:4000/api/attaquer_position
+
+curl -H "Content-Type: application/json" -X POST \
+    -d '{"id_joueur_attaquant": 0, "id_joueur_attaque": 1, "position": "F2"}' \
+    http://localhost:4000/api/attaquer_position
+
+curl -H "Content-Type: application/json" -X POST \
+    -d '{"id_joueur_attaquant": 1, "id_joueur_attaque": 0, "position": "C3"}' \
+    http://localhost:4000/api/attaquer_position
+
+curl -H "Content-Type: application/json" -X POST \
+    -d '{"id_joueur_attaquant": 0, "id_joueur_attaque": 1, "position": "G1"}' \
+    http://localhost:4000/api/attaquer_position
+
+curl -H "Content-Type: application/json" -X POST \
+    -d '{"id_joueur_attaquant": 1, "id_joueur_attaque": 0, "position": "D5"}' \
+    http://localhost:4000/api/attaquer_position
+
+curl -H "Content-Type: application/json" -X POST \
+    -d '{"id_joueur_attaquant": 0, "id_joueur_attaque": 1, "position": "H1"}' \
+    http://localhost:4000/api/attaquer_position
+
+curl -H "Content-Type: application/json" -X POST \
+    -d '{"id_joueur_attaquant": 1, "id_joueur_attaque": 0, "position": "D6"}' \
+    http://localhost:4000/api/attaquer_position
+
+curl -H "Content-Type: application/json" -X POST \
+    -d '{"id_joueur_attaquant": 0, "id_joueur_attaque": 1, "position": "I1"}' \
+    http://localhost:4000/api/attaquer_position
+
+curl -H "Content-Type: application/json" -X POST \
+    -d '{"id_joueur_attaquant": 1, "id_joueur_attaque": 0, "position": "E5"}' \
+    http://localhost:4000/api/attaquer_position
+
+curl -H "Content-Type: application/json" -X POST \
+    -d '{"id_joueur_attaquant": 0, "id_joueur_attaque": 1, "position": "H7"}' \
+    http://localhost:4000/api/attaquer_position
+
+curl -H "Content-Type: application/json" -X POST \
+    -d '{"id_joueur_attaquant": 1, "id_joueur_attaque": 0, "position": "F5"}' \
+    http://localhost:4000/api/attaquer_position
+
+curl -H "Content-Type: application/json" -X POST \
+    -d '{"id_joueur_attaquant": 0, "id_joueur_attaque": 1, "position": "I7"}' \
+    http://localhost:4000/api/attaquer_position
+
+curl -H "Content-Type: application/json" -X POST \
+    -d '{"id_joueur_attaquant": 1, "id_joueur_attaque": 0, "position": "G5"}' \
+    http://localhost:4000/api/attaquer_position
+
+curl -H "Content-Type: application/json" -X POST \
+    -d '{"id_joueur_attaquant": 0, "id_joueur_attaque": 1, "position": "G7"}' \
+    http://localhost:4000/api/attaquer_position
+
+curl -H "Content-Type: application/json" -X POST \
+    -d '{"id_joueur_attaquant": 1, "id_joueur_attaque": 0, "position": "C5"}' \
+    http://localhost:4000/api/attaquer_position
+
+curl -H "Content-Type: application/json" -X POST \
+    -d '{"id_joueur_attaquant": 0, "id_joueur_attaque": 1, "position": "E8"}' \
+    http://localhost:4000/api/attaquer_position
+
+curl -H "Content-Type: application/json" -X POST \
+    -d '{"id_joueur": 1, "id_joueur_adverse": 0}' \
+    http://localhost:4000/api/obtenir_etat_partie
+
+curl -H "Content-Type: application/json" -X POST \
+    -d '{"id_joueur_attaquant": 1, "id_joueur_attaque": 0, "position": "C7"}' \
+    http://localhost:4000/api/attaquer_position
+
+curl -H "Content-Type: application/json" -X POST \
+    -d '{"id_joueur_attaquant": 0, "id_joueur_attaque": 1, "position": "E9"}' \
+    http://localhost:4000/api/attaquer_position
+
+curl -H "Content-Type: application/json" -X POST \
+    -d '{"id_joueur_attaquant": 1, "id_joueur_attaque": 0, "position": "B7"}' \
+    http://localhost:4000/api/attaquer_position
+
+curl -H "Content-Type: application/json" -X POST \
+    -d '{"id_joueur_attaquant": 0, "id_joueur_attaque": 1, "position": "E10"}' \
+    http://localhost:4000/api/attaquer_position
+
+curl -H "Content-Type: application/json" -X POST \
+    -d '{"id_joueur_attaquant": 1, "id_joueur_attaque": 0, "position": "A7"}' \
+    http://localhost:4000/api/attaquer_position
+
+curl -H "Content-Type: application/json" -X POST \
+    -d '{"id_joueur_attaquant": 0, "id_joueur_attaque": 1, "position": "E7"}' \
+    http://localhost:4000/api/attaquer_position
+
+curl -H "Content-Type: application/json" -X POST \
+    -d '{"id_joueur_attaquant": 1, "id_joueur_attaque": 0, "position": "J5"}' \
+    http://localhost:4000/api/attaquer_position
+
+curl -H "Content-Type: application/json" -X POST \
+    -d '{"id_joueur_attaquant": 0, "id_joueur_attaque": 1, "position": "E6"}' \
+    http://localhost:4000/api/attaquer_position
+
+
+# Fin partie
+
+curl -H "Content-Type: application/json" -X POST \
+    -d '{"id_joueur": 0}' \
+    http://localhost:4000/api/determiner_joueur_gagnant
