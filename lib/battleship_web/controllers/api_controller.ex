@@ -33,6 +33,11 @@ defmodule BattleshipWeb.ApiController do
     render conn, "api_game_status.json",  %{"state" => state}
   end
 
+  def determiner_joueur_gagnant(conn, %{"id_joueur" => id_joueur}) do
+    joueur_est_gagnant = Monitor.determiner_joueur_gagnant(id_joueur)
+    render conn, "api_winning_player.json",  %{"joueur_est_gagnant" => joueur_est_gagnant}
+  end
+
   def view_state(conn, _params) do
     state = Monitor.view_state()
     render conn, "api_view_state.json",  %{"state" => state}

@@ -22,6 +22,7 @@ defmodule BattleshipWeb.Router do
     post "/rotation_bateau", ApiController, :rotation_bateau
     post "/attaquer_position", ApiController, :attaquer_position
     post "/obtenir_etat_partie", ApiController, :obtenir_etat_partie
+    post "/determiner_joueur_gagnant", ApiController, :determiner_joueur_gagnant
     get "/view_state", ApiController, :view_state
   end
 

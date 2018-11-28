@@ -11,4 +11,8 @@ defmodule BattleshipWeb.ApiView do
     %{state: state}
   end
 
+  def render("api_winning_player.json", %{"joueur_est_gagnant" => joueur_est_gagnant}) do
+    %{joueur_est_gagnant: joueur_est_gagnant}
+  end
+
 end
