@@ -1,25 +1,37 @@
-Battleship
-Ce projet est un prototype de Battleship réalisé en Elixir par PAQUET Benoit et EUGENE Audrey dans le cadre du cours MGL7361 à l'UQAM. Le jeu est à deux joueurs où chacun d'eux possède une grille de 11x9 cases pour placer leurs différents bateaux. Chaque devra attquer les positions de la grille où l'adversaire à posé ses bateau; si toutes les cases d'un bateau ont été touchées, ce dernier est déclaré « coulé ». Le gagnant est celui qui parvient à couler tous les bateaux de son adversaire.
+# Battleship
+
+Ce projet est un prototype de Battleship rÃ©alisÃ© en Elixir par PAQUET Benoit et EUGENE Audrey dans le cadre du cours MGL7361 Ã  l'UQAM. Le jeu est Ã  deux joueurs oÃ¹ chacun d'eux possÃ¨de une grille de 11x9 cases pour placer leurs diffÃ©rents bateaux. Chaque devra attquer les positions de la grille oÃ¹ l'adversaire Ã  posÃ© ses bateau; si toutes les cases d'un bateau ont Ã©tÃ© touchÃ©es, ce dernier est dÃ©clarÃ© Â«Â coulÃ©Â Â». Le gagnant est celui qui parvient Ã  couler tous les bateaux de son adversaire.
 
 
-Installation
-Pour pouvoir exécuter le prototype, il faudra tout d'abord s'assurer de faire les actions suivantes :
-Télécharger les logiciels PostSQL (pour les bases de données), Node.js et Elixir.
-Démarrer votre serveur Pheonix :
-Installation des dépendances avec mix deps.get 
-Création et migration des données avec mix ecto.create && mix ecto.migrate 
-Installation des dépendances Node.js avec cd assets && npm install 
-Démarrage de Phoenix avec mix phx.server 
+## Installation
+Pour pouvoir exÃ©cuter le prototype, il faudra tout d'abord s'assurer de faire les actions suivantesÂ :
 
-Vous pouvez maintenant visiter localhost:4000 depuis votre navigateur.
+* TÃ©lÃ©charger les logiciels Postgresql (pour les bases de donnÃ©es), Node.js et Elixir.
+* DÃ©marrer votre serveur PheonixÂ :
+  * Installation des dÃ©pendances avec `mix deps.get`
+  * CrÃ©ation et migration des donnÃ©es avec `mix ecto.create && mix ecto.migrate`
+  * Installation des dÃ©pendances Node.js avec `cd assets && npm install`
+  * DÃ©marrage de Phoenix avec `mix phx.server`
 
-Exécution
-Pour exécuter le prototype, vous devez démarrer le serveur avec mix phx.server et utiliser les api développés pour jouer. Voici les actions que vous pouvez effectuer :
-Phase de préparation
-changer_nom_joueur(id_joueur, nom_joueur)
-positionner_bateau(id_joueur, nom_bateau, position, orientation)
-enlever_bateau(id_joueur, nom_bateau)
-rotation_bateau(id_joueur, nom_bateau)
-Phase de jeu
-attaquer_position(id_joueur_attaquant, id_joueur_attaque, position)
-obtenir_etat_partie(id_joueur, id_joueur _adverse)
+Vous pouvez maintenant visiter `localhost:4000` depuis votre navigateur.
+
+## ExÃ©cution
+Pour exÃ©cuter le prototype, vous devez dÃ©marrer le serveur avec `mix phx.server` et utiliser les api dÃ©veloppÃ©s pour jouer. Voici les actions que vous pouvez effectuerÂ :
+* Phase de prÃ©paration
+  * changer_nom_joueur(id_joueur, nom_joueur)
+  * positionner_bateau(id_joueur, nom_bateau, position, orientation)
+  * enlever_bateau(id_joueur, nom_bateau)
+  * rotation_bateau(id_joueur, nom_bateau)
+ * Phase de jeu
+   * attaquer_position(id_joueur_attaquant, id_joueur_attaque, position)
+   * obtenir_etat_partie(id_joueur, id_joueur _adverse)
+
+## Architecture
+
+### Vue statique
+
+![Vue statique](vue_statique.png)
+
+### Vue dynamique
+
+![Vue dynamique](vue_dynamique.png)
